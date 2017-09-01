@@ -10,17 +10,24 @@
 %模块属性
 -module(tr_server).
 %行为模式属性
--behaviour(gen_server).  
+-behaviour(gen_server).
 
+-include_lib("eunit/include/eunit.hrl").
 %%% 导出声明
-%% API
--export([start_link/1, start_link/0, get_count/0, stop/0]).
+%%API
+-export([
+    start_link/1,
+    start_link/0,
+    get_count/0,
+    stop/0
+    ]).
 %% gen_server callbacks
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2, terminate/2, code_change/3]).
-%将SERVER设置为模块名
--defines(SERVER, ? MODULE).
+%%将SERVER设置为模块名
+-define(SERVER, ?MODULE).
 %定义默认端口
--defines(DEFAULT_PORT, 1055).
+-define(DEFAULT_PORT, 1055).
+
 %用于保存进程状态
 -record(state, {port, lsock, request_count = 0}).
 
