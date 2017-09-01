@@ -4,6 +4,7 @@
 -export([main/1]).
 
 start() ->
+    
     io:format("Hello World ~n"),
     init:stop().
 
