@@ -12,7 +12,7 @@
 %行为模式属性
 -behaviour(gen_server).
 
--include_lib("eunit/include/eunit.hrl").
+%-include_lib("eunit/include/eunit.hrl").
 %%% 导出声明
 %%API
 -export([
