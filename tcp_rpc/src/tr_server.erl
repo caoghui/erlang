@@ -1,37 +1,39 @@
-%%%----------------首部---------------
-%%%---------------------------------------------------------------
+%%%--------------------------------------首部-------------------------------------
+%%%-------------------------------------------------------------------------------
 %%% @author Bruce <258214414@qq.com>
 %%% @copyright 2017
 %%% @doc RPC over TCP Server. This module defines a server process that
 %%%      listens for incoming TCP connections and allows the user to execute
 %%%      RPC commands via that TCP stream.
 %%% @end
-%%%---------------------------------------------------------------
+%%%-------------------------------------------------------------------------------
 %模块属性
 -module(tr_server).
 %行为模式属性
 -behaviour(gen_server).
 
-%-include_lib("eunit/include/eunit.hrl").
-%%% 导出声明
-%%API
--export([
-    start_link/1,
-    start_link/0,
-    get_count/0,
-    stop/0
-    ]).
+%单元测试
+-include_lib("eunit/include/eunit.hrl").
+
+%%%----------------------------------导出声明---------------------------------------
+%% API
+-export([start_link/1, start_link/0, get_count/0, stop/0]).
+
 %% gen_server callbacks
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2, terminate/2, code_change/3]).
-%%将SERVER设置为模块名
+
+%% unit test
+%-export([start_test/0]).
+
+%% 将SERVER设置为模块名
 -define(SERVER, ?MODULE).
-%定义默认端口
+
+%% 定义默认端口
 -define(DEFAULT_PORT, 1055).
 
-%用于保存进程状态
+%% 用于保存进程状态
 -record(state, {port, lsock, request_count = 0}).
-
-%%%----------------end---------------
+%%%--------------------------------------end-------------------------------------------
 
 %%%-------------------------------------%%%
 %%%----------------API 段---------------%%%
@@ -119,8 +121,8 @@ args_to_terms(RawArgs) ->
     Args.
 
 %%% 测试函数
-%start() ->
-%    io:format("Hello TCP RPC Server ~n"),
-%    init:stop().
+start_test() ->
+    io:format("Hello TCP RPC Server ~n"),
+    init:stop().
 
 %%%----------------end---------------

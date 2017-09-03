@@ -1,17 +1,12 @@
 .SUFFIXES: 	.erl .beam
 .erl.beam:
-	erlc -W $<
+	erlc -W -o ebin $<
 
 #命令定义
 ERL   = erl -boot start_clean
 MKDIR = @mkdir -p
 RM    = @rm -rf 
 ECHO  = @echo 
-
-#变量定义
-SRCS = $(wildcard *.erl)
-MODS = $(patsubst %.erl, %, $(SRCS))
-TARS = $(patsubst %.erl, %.beam, $(SRCS))
 
 # 应用目录结构
 DOC_DIR = doc
@@ -21,11 +16,23 @@ PRI_DIR = priv
 SRC_DIR = src
 APP_DIR = $(DOC_DIR) $(BIN_DIR) $(INC_DIR) $(PRI_DIR) $(SRC_DIR)
 
+#变量定义
+SRCS = $(wildcard $(SRC_DIR)/*.erl)
+MODS = $(patsubst %.erl, %, $(notdir $(SRCS)))
+TARS = $(patsubst %, ${BIN_DIR}/%.beam, $(MODS))
 
+#all:${TARS}
 all:compile
 #	${ERL} -s hello start
 
-compile: ${MODS:%=%.beam}
+#compile: ${MODS:%=%.beam}
+compile:
+	erlc -o ${BIN_DIR} ${SRCS}
+
+#compile: ${TARS}
+
+${TARS}:${SRC_DIR}/*.erl
+	erlc -o ${BIN_DIR} $<
 
 init:
 	${MKDIR} ${DOC_DIR}
@@ -36,6 +43,7 @@ init:
 
 .PHONY:clean cleanall show
 show:
+	${ECHO} ${SRCS}
 	${ECHO} ${MODS}
 	${ECHO} ${TARS}
 	${ECHO} ${APP_DIR}
@@ -45,4 +53,6 @@ clean:
 
 cleanall:
 	${RM} ${TARS} *.dump
-	${RM} ${APP_DIR}
+#	${RM} ${APP_DIR}
+
+
