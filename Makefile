@@ -10,9 +10,12 @@ all:compile
 
 compile: ${MODS:%=%.beam}
 
+cpp:
+	g++ -g -o convert convert.cpp
+
 .PHONY:clean show
 show:
 	@echo ${MODS}
 
 clean:
-	@rm -rf *.beam *.dump
+	@rm -rf *.beam *.dump convert
