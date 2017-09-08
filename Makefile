@@ -3,14 +3,15 @@
 	erlc -W $<
 
 #module want to be build
-SDIRS=tcp_rpc event
+DIRS=tcp_rpc event
 
-RECURSIVE_MAKE= [ -n "$(DIRS)" ] && for i in $(SDIRS); do \
+RECURSIVE_MAKE= [ -n "$(DIRS)" ] && for i in $(DIRS); do \
                 (cd $$i && $(MAKE) SDIR=$$i --no-print-directory) || exit 1; \
                 done;
 
-all: desc $(RECURSIVE_MAKE)
-
+all: desc clean
+	@$(RECURSIVE_MAKE)
+	
 compile: ${MODS:%=%.beam}
 
 
@@ -20,7 +21,7 @@ show:
 	@echo ${DIRS}
 
 desc:
-	@echo $(DIRS)
+	@echo "module : [$(DIRS)]"
 
 clean:
 	@rm -rf *.beam *.dump convert
