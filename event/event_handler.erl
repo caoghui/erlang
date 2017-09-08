@@ -1,5 +1,14 @@
 -module(event_handler).
 -export([make/1, add_handler/2, event/2]).
+%%test
+-export([no_op/1]).
+-ifdef(debug).
+-define(log(X), io:format("{~p:~p}: ~p~n", [?MODULE,?LINE,X])).
+-else.
+-define(log(X), true).
+-endif.
+%%导入测试函数
+-import(lib_log, [log_debug/1, log_debug/3]).
 
 %%制作一个名为Name的新事件处理器，处理函数是no_op
 make(Name) ->
@@ -22,4 +31,7 @@ my_handler(Fun) ->
             my_handler(Fun)
     end.
 
-no_op(_) -> void.
+no_op(X) -> 
+%    log(X).
+    log_debug(?MODULE, ?LINE, X).
+%    io:format("[~p:~p]~w~n", [?MODULE, ?LINE, X]).
