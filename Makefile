@@ -14,9 +14,7 @@ all: desc clean
 	
 compile: ${MODS:%=%.beam}
 
-
-
-.PHONY:clean show
+.PHONY:clean show desc
 show:
 	@echo ${DIRS}
 
