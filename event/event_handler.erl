@@ -27,11 +27,11 @@ my_handler(Fun) ->
         {add, Fun1} ->
             my_handler(Fun1);
         {event, Any} ->
+            io:format("{event ~p} catch and call Fun to handle~n", [Any]),
             (catch Fun(Any)),
             my_handler(Fun)
     end.
 
-no_op(X) -> 
-%    log(X).
-    log_debug(?MODULE, ?LINE, X).
-%    io:format("[~p:~p]~w~n", [?MODULE, ?LINE, X]).
+no_op(X) ->
+    io:format("[~p:~p]~w~n", [?MODULE, ?LINE, X]),
+    void.

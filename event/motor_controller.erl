@@ -7,4 +7,4 @@ add_event_handler() ->
 controller(too_hot) ->
     io:format("Turn off the motor ~n");
 controller(X) ->
-    io:format("~w ignore event: ~p~n", [?MODULE, X]).
+    io:format("[~w] ignore event: ~p~n", [?MODULE, X]).

@@ -1,4 +1,4 @@
--module(lib_primes).
+-module(lib_prime).
 -export([make_prime/1, is_prime/1, make_random_init/1]).
 
 make_prime(1) ->
