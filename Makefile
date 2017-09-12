@@ -7,7 +7,7 @@
 DIRS = $(filter-out lib doc, $(shell ls -l | grep ^d | awk '{print $$9}'))
 
 RECURSIVE_MAKE = [ -n "$(DIRS)" ] && for i in $(DIRS); do \
-                (cd $$i && $(MAKE) SDIR=$$i --no-print-directory) || exit 1; \
+                (cd $$i && $(MAKE) SDIR=$$i) || exit 1; \
                 done;
 
 all: desc clean
