@@ -4,7 +4,7 @@
 
 #module want to be build
 #DIRS=tcp_rpc event
-DIRS = $(filter-out lib doc, $(shell ls -l | grep ^d | awk '{print $$9}'))
+DIRS = $(filter-out doc error_logs, $(shell ls -l | grep ^d | awk '{print $$9}'))
 
 RECURSIVE_MAKE = [ -n "$(DIRS)" ] && for i in $(DIRS); do \
                 (cd $$i && $(MAKE) SDIR=$$i) || exit 1; \

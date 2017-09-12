@@ -1,5 +1,5 @@
 *.dump
 *.beam
 *.log
-event/error_logs/*
+error_logs/*
 convert
