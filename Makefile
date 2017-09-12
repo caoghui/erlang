@@ -3,9 +3,10 @@
 	erlc -W $<
 
 #module want to be build
-DIRS=tcp_rpc event
+#DIRS=tcp_rpc event
+DIRS = $(filter-out lib doc, $(shell ls -l | grep ^d | awk '{print $$9}'))
 
-RECURSIVE_MAKE= [ -n "$(DIRS)" ] && for i in $(DIRS); do \
+RECURSIVE_MAKE = [ -n "$(DIRS)" ] && for i in $(DIRS); do \
                 (cd $$i && $(MAKE) SDIR=$$i --no-print-directory) || exit 1; \
                 done;
 
@@ -17,6 +18,7 @@ compile: ${MODS:%=%.beam}
 .PHONY:clean show desc
 show:
 	@echo ${DIRS}
+	@echo ${CURDIRS}
 
 desc:
 	@echo "module : [$(DIRS)]"
